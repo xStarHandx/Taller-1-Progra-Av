@@ -20,3 +20,6 @@ public class fizzBuzz {
 	}
 
 }
+
+
+//PICO PAL QUE LEE CON MAYO BIEN RICO ASÍ
