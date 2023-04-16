@@ -1,0 +1,3 @@
+Pablo, 2456, mejora de ia, 32
+Dona Florinda, 3000, programador, 38
+Don Ramon, 4000, ia master, 40

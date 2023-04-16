@@ -1,0 +1,3 @@
+nako,2003, 15, simple, Fernando, 0
+kiko,2004, 10, media, Dona Florinda, 10
+chavo,2005, 20, avanzada, Don Ramon, 20
