@@ -1,2 +1,2 @@
-# Taller-1-Progra-Av
-Repositorio de codigos del primer taller
+# EJEMPLO-DE-POO
+Repositorio de codigos de ejemplo
