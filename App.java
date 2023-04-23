@@ -1,4 +1,3 @@
-package taller1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,12 +21,10 @@ QUE HACE CADA FUNCION:
 3)desplegarMaster------>Procedimiento para ingresar Mejoras y Velocidades a una IA (muestra las IA, mejoras y velocidades)
 ------------------------Extracción de informacion------------------------------------------------------------------------
 1)extraerInfo---->Crea una matriz de Int (numeros enteros) con la matriz de String (textos)
-
 ------------------------Impresiones por pantalla------------------------------------------------------------------------
 4)imprimirMx----->Imprime una matriz de String (textos)
 5)imprimirMxNum-->Imprime una matriz de Int (números enteros)
 6)imprimirLista-->Imprime una lista de Int (números enteros)
-
 */
 
 
@@ -42,14 +39,20 @@ public class App {
 		String[][]mxCreador= crearMatriz("datos_creadores.txt",contCreador,true);
 		String[][]mxIa= crearMatriz("datos_ia.txt",contIa,false);
 		//ESTAS SE UTILIZARÁN (QUIZAS) PARA BUSCAR LOS MAYORES, MENORES Y PROMEDIOS
-		int[][]infoCreadores= extraerInfo(mxCreador,contCreador,true);
-		int[][]infoIas= extraerInfo(mxIa,contIa,false);
 		//MENUS------------------------------------------
 		//menuR1();
 		menuR2(mxIa,mxCreador,mxUsuario);
+		int[][]infoCreadores= extraerInfo(mxCreador,contCreador,true);
+		int[][]infoIas= extraerInfo(mxIa,contIa,false);
 		
+		//--------------	REPORTES  -----------------------
+		edadMediaCreador(infoCreadores, false);
+		edadMediaIa(infoIas);
+		promVelocidadAprendizajeIa(infoIas);
+
 	}
-	
+
+
 	private static void menuR2(String[][]mxIa,String[][]mxCreador,String[][]mxUsuario) {
 		String nombre,contraseña;
 		Scanner leer= new Scanner(System.in);
@@ -74,7 +77,7 @@ public class App {
 		}
 		return -1;
 	}
-	
+
 	private static void verificadorUsuario(String[][]mxIa,String[][]mxCreador,String[][]mxUsuario,String contraseña, int pos) {
 		String aux= mxUsuario[pos][1].replaceAll(" ", "");
 		if(contraseña.equals(aux)) {
@@ -88,13 +91,13 @@ public class App {
 			System.out.println("Contraseña incorrecta");
 		}
 	}
-	
+
 	//---------------------------------MENU ADMIN--------------------------------
-	/*
+	
 	private static void desplegarMenuAdmin() {
 		int opcion= submenuInicial();
 		if(opcion==1) {
-			submenuIA();
+			//submenuIA();
 		}else {
 			//submenuAdmin();
 		}
@@ -107,7 +110,7 @@ public class App {
 			//burbuja(mxIa);
 		}
 	}
-	*/
+	
 
 	//---------------------------------MENU NORMAL--------------------------------
 	private static void desplegarMenuNormal(String[][]mxIa,String[][]mxCreador,String creador) {
@@ -124,7 +127,7 @@ public class App {
 			}
 		}
 	}
-	
+
 	//MENU DE LAS MEJORAS V2
 	private static void desplegarMejoras(String[][]mxIa) {
 		Scanner leer= new Scanner(System.in);
@@ -182,7 +185,7 @@ public class App {
 		}
 		leer.close();
 	}
-	
+
 	//SUB-MENU PARA AÑADIR LAS MEJORAS
 	private static void añadirMejora(String[][] mxIa, int i) {
 		if((Integer.valueOf(mxIa[i][2]))!=0) {
@@ -211,7 +214,7 @@ public class App {
 		limiteVelocidad(mxIa,pos);
 		leer.close();
 	}
-	
+
 	//PROCEDIMIENTO PARA HACER LAS CONVERSIONES DE DIAS Y HORAS, CALCULAR LIMITE DE VELOCIDAD
 	private static void limiteVelocidad(String[][] mxIa,int i) {
 		double media=1.25,avanzada=7.5,cambioVelocidad;//HORAS MAXIMAS DE CADA TIPO DE IA
@@ -280,7 +283,7 @@ public class App {
 		}
 		return mxInfo;
 	}
-	
+
 	//----------------Función para conocer la cantidad de lineas que tiene el archivo, retornará la cantidad de lineas
 	private static int contador(String arch) throws FileNotFoundException {
 		File archivo= new File(arch);
@@ -293,7 +296,7 @@ public class App {
 		read.close();
 		return cont;
 	}
-	
+
 	//-----------------------FUNCION PARA CREAR UNA MATRIZ CON LOS DATOS DEL ARCHIVO
 	private static String[][] crearMatriz(String nombre,int cont,boolean x) throws FileNotFoundException{
 		//cambiará el tamaño de la matriz segun los datos
@@ -309,26 +312,39 @@ public class App {
 			Scanner read= new Scanner(new File(nombre));
 			int aux=0;//ESTO NOS MOVERÁ DE FILA
 			while(read.hasNextLine()) {
-				String linea= read.nextLine().replaceAll(" ", "");
+				String linea= read.nextLine().replaceAll(" ", "");//
 				String[]partes= linea.split(",");
 				//INGRESAR LAS PARTES A LA MATRIZ COMO STRING
 				for(int i=0;i<columna;i++) {
+					
+					
+					
+					/*
+					 * if(partes[i] = "IA WINS"){
+					 * 	int cont = 0;
+					 * cont++;
+					 * desplegarIaWins(cont);					 
+					
+					 *
+					 */
+					//else
 					mx[aux][i]=partes[i];
+					
 				}
 				aux++;
 			}
 			read.close();
 			return mx;
-			
+
 		}catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
 		return mx;
 	}
-	
+
 	//-------------------------IMPRESIONES---------------------\\
 	//impresion de submenus-ADMIN
-	private static int submenuInicial() {
+	private static int submenuInicial() { // CAMBIARA SWITCH
 		Scanner leer= new Scanner(System.in);
 		System.out.println("----Bienvenido al Menu de Admin----");
 		System.out.println("Opciones para ingresar (1/2):");
@@ -342,7 +358,9 @@ public class App {
 		return opcion;
 	}
 	
-	private static int ordenIAS() {
+	
+
+	private static int ordenIAS() { // CAMBIAR A SWITCH
 		Scanner leer= new Scanner(System.in);
 		System.out.println("En qué orden desea ver las IA:");
 		System.out.println("1)Nombre de IA");
@@ -359,10 +377,10 @@ public class App {
 		leer.close();
 		return opcion;
 	}
-	
+
 	//ORDENAMIENTO BURBUJA
-	
-	
+
+
 	//impresion de matriz con textos
 	private static void imprimirMx(String[][] mx) {
 		for(int i=0;i<mx.length;i++) {//RECORRER FILAS
@@ -387,26 +405,65 @@ public class App {
 			System.out.println(lista[i]);
 		}
 	}
+//------------------------------------REPORTES------------------------------------
+
+private static double edadMediaCreador(int [][] infoCreadores ,  boolean x) {
+	
+	int suma = 0;
+	double promedio = 0;
+
+	for(int i = 0; i < infoCreadores.length; i++) {
+		suma += infoCreadores[i][3];
+		promedio = suma / i;
+		
+	}
+	
+	return promedio;
+}
+
+private static double edadMediaIa(int [][] infoIas) {
+	
+	int suma = 0;
+	double promedio = 0;
+	
+	for(int i = 0; i < infoIas.length; i++ ) {
+		suma += infoIas[i][1];
+		promedio = suma / i;
+	}
 	
 	
+	return promedio;
 	
+}
+
+private static void promVelocidadAprendizajeIa(int[][] infoIas) {
 	
+	int suma = 0;
+	double promedio = 0;
 	
+	for(int i = 0; i < infoIas.length; i ++) {
+		suma += infoIas[i][2];
+		promedio = suma / i;
+		
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//-----------------------------------------PAPELERA RECICLAJE----------------------------------------------------
 	//FUNCIONES PARA GUARDAR LOS DATOS DE LOS ARCHIVOS EN UNA LISTA
-	
+
 	/*
 	private static String[] leerArchivo(String nombre,int cont) throws FileNotFoundException {
 		File archivo= new File(nombre);
