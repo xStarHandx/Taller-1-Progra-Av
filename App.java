@@ -46,11 +46,20 @@ public class App {
 		int[][]infoIas= extraerInfo(mxIa,contIa,false);
 		
 		//--------------	REPORTES  -----------------------
-		edadMediaCreador(infoCreadores, false);
+		edadMediaCreador(infoCreadores);
 		edadMediaIa(infoIas);
 		promVelocidadAprendizajeIa(infoIas);
+		cantidadIaTipos(mxIa);
+		cantidadCreadoresEspecialidad(mxCreador);
+		
 
 	}
+
+
+
+
+
+
 
 
 	private static void menuR2(String[][]mxIa,String[][]mxCreador,String[][]mxUsuario) {
@@ -407,52 +416,109 @@ public class App {
 	}
 //------------------------------------REPORTES------------------------------------
 
-private static double edadMediaCreador(int [][] infoCreadores ,  boolean x) {
+private static void edadMediaCreador(int [][] infoCreadores) {//CALCULA LA EDAD MEDIA DE LOS CREADORES
 	
 	int suma = 0;
-	double promedio = 0;
+	double promedioCreadores = 0;
 
 	for(int i = 0; i < infoCreadores.length; i++) {
 		suma += infoCreadores[i][3];
-		promedio = suma / i;
+		promedioCreadores = suma / i;
 		
 	}
 	
-	return promedio;
+	System.out.println("El promedio de edad de los creadores es: " + promedioCreadores);
 }
 
-private static double edadMediaIa(int [][] infoIas) {
+private static void edadMediaIa(int [][] infoIas) { //CALCULA LA EDAD PROMEDIO DE Las IA
 	
 	int suma = 0;
-	double promedio = 0;
+	double promedioIa = 0;
 	
 	for(int i = 0; i < infoIas.length; i++ ) {
 		suma += infoIas[i][1];
-		promedio = suma / i;
+		promedioIa = suma / i;
 	}
 	
 	
-	return promedio;
+	System.out.println("La edad promedio de las Ia es: " + promedioIa);
 	
 }
 
-private static void promVelocidadAprendizajeIa(int[][] infoIas) {
+private static void promVelocidadAprendizajeIa(int[][] infoIas) {// CALCULA el promedio de la velocidad de aprendizaje
 	
 	int suma = 0;
-	double promedio = 0;
+	double promedioVelocidadIa = 0;
 	
 	for(int i = 0; i < infoIas.length; i ++) {
 		suma += infoIas[i][2];
-		promedio = suma / i;
+		promedioVelocidadIa = suma / i;
 		
+	}
+	System.out.println("El promedio de la Velocidad de Aprendizaje de las IA es:  " + promedioVelocidadIa);
+	
+}
+
+private static void cantidadIaTipos(String[][] infoIas) {//CUENTA CUANTOS TIPOS DE IA HAY
+	
+	int contSimple = 0, contMedia = 0, contAvanzada = 0;
+	
+	for(int i = 0; i < infoIas[i].length; i++) {
+		int pos = buscarElemento(infoIas, null);
+		if((infoIas[pos][3].toLowerCase()).equals("simple")){
+			
+			contSimple++;
+		
+	}else if ((infoIas[pos][3].toLowerCase()).equals("media")) {
+		
+		contMedia++;
+		
+	}else if ((infoIas[pos][3].toLowerCase()).equals("avanzada")) {
+		
+		contAvanzada++;
+		
+	}
+		System.out.println("Se encuentran los siguientes cantidades de tipos de IA: " + contSimple +" IA simples" + contMedia + " IA medias" + contAvanzada + " IA avanzadas" );
+	
 	}
 	
 }
 
+private static void cantidadCreadoresEspecialidad(String[][] mxCreador) { //2
+	
+	int contMejorarIa = 0;
+	int contProgramador = 0;
+	int contIaMaster = 0;
+	
+	for(int i = 0; i < mxCreador[i].length; i++) {
+		int pos = buscarElemento(mxCreador, null);
+		if((mxCreador[pos][2].toLowerCase()).equals("mejora de ia")){
+			
+			contMejorarIa++;
+			
+		}else if((mxCreador[pos][2].toLowerCase()).equals("programador")) {
+			
+			contProgramador++;
+			
+		}else if((mxCreador[pos][2].toLowerCase()).equals("ia master")) {
+			
+			contIaMaster++;
+		}
+		System.out.println("Se encuentran los siguientes cantidades de creadores por especialidad: " + contMejorarIa +" Mejorar Ia" + contProgramador + " Programadores Ia" + contIaMaster + " Ia masters" );
+	}
+	
+}
 
+/*---------------------------------ME FALTA ▪ IA más probables para revelarse ----------------------------
+ * o La formula para calcular el último punto es la siguiente
+▪ IA Simple: (año creación x 5 x meses experiencia creador) / velocidad 
+aprendizaje
+▪ IA media: (año creación x 10 x meses experiencia creador) / velocidad 
+aprendizaje
+▪ IA Avanzada: (año creación x 15 x meses experiencia creador) / 
+velocidad aprendizaje 
 
-
-
+ */
 
 
 
@@ -487,5 +553,6 @@ private static void promVelocidadAprendizajeIa(int[][] infoIas) {
 	}
 	
 	*/
+
 
 }
